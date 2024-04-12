@@ -33,26 +33,58 @@ app.MapGet("/api/produto/buscar/{id}", (string id) => {
 });
 
 //POST: http://localhost:5225/api/produto/cadastrar
-app.MapPost("/api/produto/cadastrar/{nome}/{descricao}/{valor}", 
-    (string nome, string descricao, double valor) => {
-
-        //criar objeto e preencher os atributos
-        Produto produto = new Produto(nome, descricao, valor);
+app.MapPost("/api/produto/cadastrar/", 
+    (Produto produto) => {
 
         
 
-        //preencher os atributos de forma individual
-        produto.Nome = nome;
-        produto.Descricao = descricao;
-        produto.Valor = valor;
-
         //Adicionar o produto dentro da lista
         produtos.Add(produto);
+        //returnar o resultado do produto
 
 
         return Results.Created("", produto);
-        //hehe
+        
     });
+
+// Endpoint para atualizar um produto existente
+app.MapPut("/api/produto/atualizar/{id}", (string id, Produto pAtualizado) => {
+    
+    
+        foreach(Produto pExiste in produtos)
+    {
+    if (pExiste.Id == id)
+    {
+        // Atualiza os dados do produto existente com os dados do produto atualizado
+        pExiste.Nome = pAtualizado.Nome;
+        pExiste.Descricao = pAtualizado.Descricao;
+        pExiste.Valor = pAtualizado.Valor;
+
+        return Results.Ok(pExiste);
+    }
+    }  
+    
+    return Results.NotFound();
+});
+
+
+app.MapDelete("/api/produto/deletar/{id}", (string id) => {
+    foreach (var produto in produtos)
+    {
+    
+        if (produto.Id == id)
+        {
+            produtos.Remove(produto);
+
+    
+            return Results.Ok(produtos);
+        }
+    }
+    return Results.Ok();
+});
+
+
+
 
 app.Run();
 

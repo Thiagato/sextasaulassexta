@@ -6,6 +6,9 @@ public class Produto{
     //Contrutores
     public Produto(){
 
+        Id = Guid.NewGuid().ToString();
+        CriadoEm = DateTime.Now;
+
     }
     public Produto(string nome, string descricao, double valor){
         Nome = nome;
