@@ -33,7 +33,26 @@ app.MapGet("/api/produto/buscar/{id}", (string id) => {
 });
 
 //POST: http://localhost:5225/api/produto/cadastrar
-app.MapPost("/api/produto/cadastrar", () => "Cadastro de produtos");
+app.MapPost("/api/produto/cadastrar/{nome}/{descricao}/{valor}", 
+    (string nome, string descricao, double valor) => {
+
+        //criar objeto e preencher os atributos
+        Produto produto = new Produto(nome, descricao, valor);
+
+        
+
+        //preencher os atributos de forma individual
+        produto.Nome = nome;
+        produto.Descricao = descricao;
+        produto.Valor = valor;
+
+        //Adicionar o produto dentro da lista
+        produtos.Add(produto);
+
+
+        return Results.Created("", produto);
+
+    });
 
 app.Run();
 
