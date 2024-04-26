@@ -6,6 +6,8 @@ namespace API.Models;
 public class AppDataContext : DbContext{
 
 //classe que vao representar as tabelas no banco de dados
+
+
     public DbSet<Produto> TabelaProdutos {get; set;}
     //override == toString
     //configurando qual banco de dados vai ser utilizado

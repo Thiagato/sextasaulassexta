@@ -26,11 +26,9 @@ namespace API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Quantidade")
